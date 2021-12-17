@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div id = 'main_form' style="position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 800px">
+        <h3>Login</h3>
+        <form method="POST" role="form-horizontal" action="">
+            {% csrf_token %}
+            <div class="form-group col-xs-4">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="form-group col-xs-4">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" name="Create User">Login</button>
+            </div>
+            <div class="form-group">
+                {% if error %}
+                    <h5 style="color:red">Username or Password Incorrect</h5>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <a href = '/register'>No Account? Register Here!</a>
+            </div>
+            <div class="form-group">
+                <a href = '/splash'>View Splash Page Here!</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

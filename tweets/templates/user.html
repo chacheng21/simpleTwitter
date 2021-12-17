@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<div class='logout' style="position: absolute;
+    top: 10%;
+    left: 80%;
+    width: 200px">
+    <form action="{% url 'logout' %}" method='POST'>
+        {% csrf_token %}
+        <button type='submit' value="Logout">
+            LOGOUT
+        </button>
+    </form>
+</div>
+<body>
+    <div style="position: absolute;
+    top:  10%;
+    left: 30%;
+    width: 800px">
+        {% csrf_token %}
+        <h1> {{ username }} </h1>
+        {% for obj in tweet %}
+        {% csrf_token %}
+        <div class='tweet'>
+            <div class='tweet_info'>
+                {{ obj.author }} {{ obj.created_at }}
+            </div>
+            <p> {{ obj.body }}</p>
+            <strong> {{obj.likes.all.count}} likes </strong>
+            <div class='like'>
+                <form action="{% url 'tweets:tweet_likes' %}" method='POST' class='ui form'>
+                    {% csrf_token %}
+                    <input type='hidden' name='tweet_id' value="{{ obj.id }}">
+                    {% if user not in obj.likes.all %}
+                    <button type='submit'>Like </button>
+                    {% else %}
+                    <button type='submit'>Unlike </button>
+                    {% endif %}
+                </form>
+            </div>
+            {% if obj.author == user%}
+            <div class='delete'>
+                <form action="{% url 'tweets:delete_tweet' %}" method='POST' class='ui form'>
+                    {% csrf_token %}
+                    <input type='hidden' name='tweet_id' value="{{ obj.id }}">
+                    <button type='submit'>Delete Tweet</button>
+                </form>
+            </div>
+            {% endif %}
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
