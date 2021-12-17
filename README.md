@@ -1,3 +1,8 @@
+### Run Application:
+```
+python manage.py runserver
+```
+
 ### Supported Features
 Posting tweets, deleting tweets, liking tweets, viewing users' tweets, hashtags
 
